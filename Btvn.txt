@@ -1,0 +1,20 @@
+- Tạo network my-app:  docker network create my-app
+- Connect container với network: docker network connect my-app nginx-1
+- Chạy container 1: docker run -d --name nginx-1 -p 8081:80 nginx:latest
+- Chạy container 2: docker run -d --name nginx-2 -p 8082:80 jwilder/whoami
+- Vào trong container 1 install ping, curl: 
+	+ docker exec -it nginx-1 /bin/bash 
+	+ apt-get update
+	+ apt-get install ping -y
+- Vào trong container 2 install ping, curl:
+	+ docker exec -it nginx-2 /bin/sh
+	+ apk update
+	+ apk add iputils
+	+ apk add curl
+ 
+Task 7:
+- Tạo network todo-app: docker network create -d bridge todo-app
+- Tạo volume: docker volume create my-volume 
+- Tạo container postgresql, kết nối file mount: docker run -d --name postgresql --mount type=volume,source=my-volume,target=/var/lib/postgresql/data -p 8083:80 -e POSTGRES_HOST_AUTH_METHOD=trust -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=root123 -e POSTGRES_DB=registry postgres
+- Tạo container thuong-app: docker run -d --name thuong-app -p 8081:8080 thuongnn1997/todo-app-db:latest 
+- Kết nối thuong-app, postgresql vào network todo-app: docker network connect todo-app thuong-app, docker network connect todo-app postgresql

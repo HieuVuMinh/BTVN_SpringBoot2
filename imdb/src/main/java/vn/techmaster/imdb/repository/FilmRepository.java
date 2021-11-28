@@ -122,4 +122,10 @@ public class FilmRepository implements IFilmRepo {
     public List<Film> top5HighMarginHorrorAndDramaFilms() {
         return null;
     }
+
+    public void test() {
+
+    }
+
+
 }
