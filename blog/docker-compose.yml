@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  mysql_database:
+    container_name: blog
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=case-study
+      - MYSQL_PASSWORD=123456
+    ports:
+      - 3307:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
